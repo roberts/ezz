@@ -5,9 +5,12 @@
 /**
  *
  *
+   https://x.com/eth_ezz
+   https://x.com/drewroberts
+
    Contract features:
-   3% buy tax in tokens burned
-   10% sell tax in ETH sent to marketing w/ some sent to founder & lead dev
+   4% buy tax in ETH sent to marketing, ezz community, dev
+   5% sell tax in ETH sent to marketing, ezz community, dev
  */
 
 // SPDX-License-Identifier: MIT
@@ -1164,7 +1167,7 @@ interface IUniswapV2Router02 is IUniswapV2Router01 {
     ) external;
 }
  
-contract army is ERC20, Ownable {
+contract ezz is ERC20, Ownable {
     using SafeMath for uint256;
  
     IUniswapV2Router02 public immutable uniswapV2Router;
@@ -1234,15 +1237,15 @@ contract army is ERC20, Ownable {
         maxWallet = (totalSupply) / 100;  //1% of total supply (1,000,000,000 tokens)
         swapTokensAtAmount = (totalSupply * 5) / 10000;
  
-        buyMarketingFee = 1;
-        buyDevelopmentFee = 1;
+        buyMarketingFee = 2;
+        buyDevelopmentFee = 2;
         buyCommunityFundFee = 1;
         buyTotalFees =
             buyMarketingFee +
             buyDevelopmentFee +
             buyCommunityFundFee;
  
-        sellMarketingFee = 8;
+        sellMarketingFee = 3;
         sellDevelopmentFee = 1;
         sellCommunityFundFee = 1;
         sellTotalFees =
@@ -1297,7 +1300,7 @@ contract army is ERC20, Ownable {
         excludeFromMaxTransaction(address(uniswapV2Pair), true);
 
         uint256 tokensInWallet = balanceOf(address(this));
-        uint256 tokensToAdd = tokensInWallet * 9 / 10; //90% of tokens in wallet go to LP
+        uint256 tokensToAdd = tokensInWallet * 9 / 10; // 90% of tokens in wallet go to LP
  
         uniswapV2Router.addLiquidityETH{value: address(this).balance}(
             address(this),
